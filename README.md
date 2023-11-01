@@ -1,32 +1,63 @@
-# 文本任务分类实验概述
+# Text Classification with Naive Bayes
 
-文本分类是一项重要的自然语言处理任务，旨在将文本按照其内容或主题分为不同的类别。本项目使用朴素贝叶斯算法进行文本分类实验。本次实验为新闻标题文本分类，根据给出的新闻标题文本和标签训练一个分类模型，然后对测试集的新闻标题文本进行分类。
-
-
-
-## 实验任务
-
-1. 数据准备与数据预处理
-   + 加载和预处理数据集，确保数据格式正确并进行必要的预处理步骤，如分词等
-   + 将文本数据转换为机器学习算法可以处理的特征表示形式
-2. 构建网络模型，进行模型训练
-   + 需要选择使用朴素贝叶斯算法或其他相关方法进行文本分类
-   + 使用训练集数据训练分类模型，并更新模型的参数以获得较好的性能
-   + 设置合适的训练轮数和批量大小，控制模型的训练过程
-3. 模型评估
-   + 使用验证集对训练好的模型进行评估，选择合适的评估指标评估模型
-   + 分析评估结果，探究模型的性能和潜在改进方向
+This is a text classification project using the Naive Bayes algorithm. It classifies news headlines into different categories based on the headline text.
 
 
 
-## 数据集信息
+## Project Overview
 
-项目使用的是处理后的 THUCNews 数据集。THUCNews 是根据新浪新闻 RSS 订阅频道 2005~2011 年间的历史数据筛选过滤生成，包含 74 万篇新闻文档，均为 UTF-8 纯文本格式。在原始新浪新闻分类体系的基础上，重新整合划分出 14 个候选分类类别：财经、彩票、房产、股票、家居、教育、科技、社会、时尚、时政、体育、星座、游戏、娱乐。数据集内含训练集、验证集和测试集三个文件，文件均为 txt 格式。训练集包含 678998 条数据，验证集包含 75636 条数据，测试集包含 77837 条数据。文本格式为：新闻标题文本 类别。数据内容示例如下：
+- The project trains a Multinomial Naive Bayes model on a dataset of Chinese news headlines labeled with 14 categories. 
+- The model uses Scikit-learn for implementation with CountVectorizer for text vectorization.
+- Jieba is used for Chinese text segmentation. 
+- The trained model is evaluated on a held-out test set, achieving 90% accuracy and strong F1 scores.
 
-巴萨 1 年前地狱重现这次却是天堂 再赴魔鬼客场必翻盘 体育
 
-美国称支持向朝鲜提供紧急人道主义援助 时政
 
-增资交银康联 交行夺参股险商首单 股票
+## Code Overview
 
-夏日大学游园会 诺基亚 E66 红黑独家对比 科技
+- `load_dataset()` - Loads the training and test dataset from text files
+- `tokenize()` - Segments the Chinese text using Jieba
+- `main()` - Handles the overall workflow
+  - Loads data
+  - Tokenizes text
+  - Vectorizes into feature matrices
+  - Trains NB model
+  - Makes predictions and evaluates
+
+
+
+## Results
+
+On the test set, the model achieves:
+
+- Accuracy: 89.8%
+- Macro F1: 87%
+- Strong individual class F1 scores 
+
+See the classification report in `main()` output for full results.
+
+
+
+## Requirements
+
+- Python 3.11
+- Scikit-learn 1.3.2
+- Jieba
+- Numpy
+
+
+
+## Usage
+
+To run the code:
+
+```
+python text_classification.py
+```
+
+
+
+## Author
+
+Klasnov Shao, Nov 1, 2023.
+
