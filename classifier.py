@@ -1,12 +1,14 @@
 """
-基于朴素贝叶斯的文本分类
+Text classification based on Naive Bayes
 
-本项目使用朴素贝叶斯算法进行文本分类实验。本次实验为新闻标题文本分类，根据给出的新闻标
-题文本和标签训练一个分类模型，然后对测试集的新闻标题文本进行分类。
+This project uses the Naive Bayes algorithm to conduct text classification experiments.
+This experiment is for text classification of news titles. According to the given news
+tags, train a classification model using title text and labels, and then classify the
+news title text of the test set.
 
-作者：邵彦铭
-时间：2023年11月1日
-环境：Python 3.11，scikit-learn 1.3.2
+Author: Klasnov Shao
+Date: Nov. 1st, 2023
+Environment: Python 3.11, scikit-learn 1.3.2
 """
 
 import jieba
@@ -15,7 +17,7 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score, classification_report
 
 
-# 加载数据集
+# Load the dataset
 def load_dataset(file_path):
     dataset = []
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -24,33 +26,32 @@ def load_dataset(file_path):
             dataset.append((text, label))
     return dataset
 
-# 文本数据分词
+# Text data segmentation
 def tokenize(text):
     return ' '.join(jieba.cut(text))
 
-# 主函数
+# Main function
 def main():
-    # 导入实验数据
+    #Import experimental data
     train_data = load_dataset('data/train.txt')
     test_data = load_dataset('data/test.txt')
 
-    # 分词
+    # Participle
     train_data = [(tokenize(text), label) for text, label in train_data]
     test_data = [(tokenize(text), label) for text, label in test_data]
 
-    # 文本向量化
+    # Text vectorization
     vectorizer = CountVectorizer()
     X_train = vectorizer.fit_transform([text for text, _ in train_data])
     y_train = [label for _, label in train_data]
-
     X_test = vectorizer.transform([text for text, _ in test_data])
     y_test = [label for _, label in test_data]
 
-    # 构建与训练朴素贝叶斯分类器
+    # Build and train a Naive Bayes classifier
     clf = MultinomialNB()
     clf.fit(X_train, y_train)
 
-    # 进行模型性能测试
+    # Perform model performance testing
     y_test_pred = clf.predict(X_test)
     accuracy = accuracy_score(y_test, y_test_pred)
     report = classification_report(y_test, y_test_pred)
