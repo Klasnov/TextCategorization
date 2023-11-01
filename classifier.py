@@ -9,7 +9,6 @@
 环境：Python 3.11，scikit-learn 1.3.2
 """
 
-
 import jieba
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
@@ -55,7 +54,8 @@ def main():
     y_test_pred = clf.predict(X_test)
     accuracy = accuracy_score(y_test, y_test_pred)
     report = classification_report(y_test, y_test_pred)
-    print("Validation Accuracy:", accuracy)
+    print()
+    print("Test Accuracy:", accuracy)
     print("Classification Report:\n", report)
 
 if __name__ == "__main__":
